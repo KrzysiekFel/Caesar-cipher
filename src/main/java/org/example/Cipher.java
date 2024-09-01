@@ -13,11 +13,16 @@ public class Cipher {
     }
 
     public String encrypt(String text, int shift) {
+
         return text;
     }
 
     public String decrypt(String encryptedText, int shift) {
+
         return encryptedText;
     }
 
+    public String decryptByBruteForce(String encryptedText) {
+        return encryptedText;
+    }
 }
