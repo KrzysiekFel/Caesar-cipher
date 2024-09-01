@@ -1,11 +1,17 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class Cipher {
     private final List<Character> alphabet;
+    private final Set<String> commonWords = new HashSet<>(Arrays.asList("the", "of", "and", "a", "to", "in", "is",
+            "you", "that", "it", "he", "was", "for", "on", "are", "as", "with", "his", "they", "I", "at", "be",
+            "this", "have", "from", "or", "one", "had", "by", "word", "but", "not", "what", "all", "were", "we",
+            "when", "your", "can", "said", "there", "use", "an", "each", "which", "she" ,"do", "how", "their", "if",
+            "will", "up", "other", "about", "out", "many", "then", "them", "these", "so", "some", "her", "would",
+            "make", "like", "him", "into", "time", "has", "look", "two", "more", "write", "go", "see", "number", "no",
+            "way", "could", "people", "my", "than", "first", "water", "been", "call", "who", "oil", "its", "now",
+            "find", "long", "down", "day", "did", "get", "come", "made", "may", "part"));
 
     public Cipher(List<Character> alphabet) {
         this.alphabet = alphabet;
@@ -60,5 +66,25 @@ public class Cipher {
             result.add(this.decrypt(encryptedText, i));
         }
         return result;
+    }
+
+    public String decryptByStatistics(String encryptedText) {
+        int maxCommonWordsCount = 0;
+        String bestDecryptedText = "";
+        for (String decryptedText : this.decryptByBruteForce(encryptedText)) {
+            String[] words = decryptedText.replaceAll("\\p{Punct}", " ").split("\\s+");
+            Set<String> uniqueWords = new HashSet<>();
+            for (String word : words) {
+                uniqueWords.add(word.toLowerCase());
+            }
+            uniqueWords.retainAll(this.commonWords);
+            int commonWordsCount = uniqueWords.size();
+            System.out.println(commonWordsCount);
+            if (commonWordsCount > maxCommonWordsCount) {
+                maxCommonWordsCount = commonWordsCount;
+                bestDecryptedText = decryptedText;
+            }
+        }
+        return bestDecryptedText;
     }
 }
