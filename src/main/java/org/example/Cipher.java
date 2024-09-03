@@ -19,22 +19,22 @@ public class Cipher {
 
     public Cipher() {
         this.alphabet = new ArrayList<>(Arrays.asList('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-                'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '.', ',', '!', '?', ' ', '\''));
+                'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '.', ',', '!', '?', ' ', '\'', '(',
+                ')', ';', '@', '#', '$', '%', '&', '*', '-', '_', '+', '='));
+    }
+
+    public List<Character> getAlphabet() {
+        return alphabet;
     }
 
     public String encrypt(String text, int shift) {
         StringBuilder result = new StringBuilder();
         int size = this.alphabet.size();
-
         for (int i = 0; i < text.length(); i++) {
             char letter = text.charAt(i);
             int letterIndexInAlphabet = this.alphabet.indexOf(Character.toLowerCase(letter));
             char encryptedLetter = this.alphabet.get((letterIndexInAlphabet + shift) % size);
-            if (Character.isUpperCase(letter)) {
-                result.append(Character.toUpperCase(encryptedLetter));
-            } else {
-                result.append(encryptedLetter);
-            }
+            result.append(encryptedLetter);
         }
         return result.toString();
     }
@@ -51,18 +51,14 @@ public class Cipher {
                 newIndex += size;
             }
             char decryptedLetter = this.alphabet.get(newIndex);
-            if (Character.isUpperCase(letter)) {
-                result.append(Character.toUpperCase(decryptedLetter));
-            } else {
-                result.append(decryptedLetter);
-            }
+            result.append(decryptedLetter);
         }
         return result.toString();
     }
 
     public List<String> decryptByBruteForce(String encryptedText) {
         List<String> result = new ArrayList<>();
-        for (int i = 1; i < this.alphabet.size() - 1; i++) {
+        for (int i = 1; i < this.alphabet.size(); i++) {
             result.add(this.decrypt(encryptedText, i));
         }
         return result;
@@ -79,7 +75,6 @@ public class Cipher {
             }
             uniqueWords.retainAll(this.commonWords);
             int commonWordsCount = uniqueWords.size();
-            System.out.println(commonWordsCount);
             if (commonWordsCount > maxCommonWordsCount) {
                 maxCommonWordsCount = commonWordsCount;
                 bestDecryptedText = decryptedText;

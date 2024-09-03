@@ -13,7 +13,7 @@ public class FileManager {
         try {
             List<String> allLines = Files.readAllLines(Paths.get(filePath));
             for (String line : allLines) {
-                contentBuilder.append(line).append(System.lineSeparator());
+                contentBuilder.append(line);
             }
         } catch (IOException e) {
             throw new RuntimeException("Error reading file at " + filePath, e);
