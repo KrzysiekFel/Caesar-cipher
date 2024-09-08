@@ -22,7 +22,9 @@ public class Main {
                     message = fileManager.readFile("src/main/resources/input.txt");
                     String encryptedMessage = cipher.encrypt(message, shift);
                     fileManager.writeFile(encryptedMessage, "src/main/resources/output.txt");
-                    System.out.println("Your message has been encrypted and stored in resources/output.txt");
+                    System.out.println("Here are first 100 characters of encrypted message. " +
+                            "Full encrypted message has been stored in resources/output.txt");
+                    System.out.println(encryptedMessage.substring(0, 100));
                     System.out.println();
                     try {
                         Thread.sleep(3000);
@@ -38,8 +40,11 @@ public class Main {
                     message = fileManager.readFile("src/main/resources/input.txt");
                     String decryptedMessage = cipher.decrypt(message, shift);
                     fileManager.writeFile(decryptedMessage, "src/main/resources/output.txt");
-                    System.out.println("Your message has been decrypted and stored in resources/output.txt");
+                    System.out.println("Here are first 100 characters of decrypted message. " +
+                            "Full decrypted message has been stored in resources/output.txt");
+                    System.out.println(decryptedMessage.substring(0, 100));
                     System.out.println();
+
                     try {
                         Thread.sleep(3000);
                     } catch (InterruptedException e) {
@@ -67,8 +72,11 @@ public class Main {
                     System.out.println();
                     System.out.println("Enter a number: ");
                     int correctOption = gui.getCorrectBruteForce(cipher.getAlphabet().size());
-                    fileManager.writeFile(allDecryption.get(correctOption - 1), "src/main/resources/output.txt");
-                    System.out.println("Full chosen decryption was stored in resources/output.txt");
+                    String chosenDecryption = allDecryption.get(correctOption - 1);
+                    fileManager.writeFile(chosenDecryption, "src/main/resources/output.txt");
+                    System.out.println("Here are chosen first 100 characters of decrypted message. " +
+                            "Full decrypted message has been stored in resources/output.txt");
+                    System.out.println(chosenDecryption.substring(0, 100));
                     System.out.println();
                     try {
                         Thread.sleep(3000);
@@ -84,6 +92,9 @@ public class Main {
                     String statDecryptedMessage = cipher.decryptByStatistics(message);
                     fileManager.writeFile(statDecryptedMessage, "src/main/resources/output.txt");
                     System.out.println("Your message has been decrypted and stored in resources/output.txt");
+                    System.out.println("Here are first 100 characters of statistically decrypted message. " +
+                            "Full decrypted message has been stored in resources/output.txt");
+                    System.out.println(statDecryptedMessage.substring(0, 100));
                     System.out.println();
                     try {
                         Thread.sleep(3000);

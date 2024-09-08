@@ -74,12 +74,7 @@ public class Gui {
 
     public void waitingForEnter() {
         Scanner scanner = new Scanner(System.in);
-        while (true) {
-            String input = scanner.nextLine();
-            if (input.isEmpty()) {
-                break;
-            }
-        }
+        scanner.nextLine();
     }
 
     public int getCorrectBruteForce(int maxNumber) {
